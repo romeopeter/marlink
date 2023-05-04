@@ -1,3 +1,12 @@
 - Authentication
-- Custom URL
+- Custom URL/Link with expiration.
 - Tracking and analytics
+- Password for protected URLs
+- Link preview for original links
+- UTM tracking
+- Integration with other platforms
+- Geotargeting for redirecting business outside of region
+- API offer for developers and business to use URL shortener in their application.
+- Strong brand identity (unique logo, tagline)
+
+Target: Marketers, social media managers, small business owners, developers and general users
