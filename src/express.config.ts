@@ -1,9 +1,12 @@
-import express, {Application} from "express";
+import express, { Application } from "express";
 
 const ExpressConfig = (): Application => {
-    const app = express();
+  const app = express();
 
-    return app
-}
+  // Parse incomging request as JSON
+  app.use(express.json());
 
-export default ExpressConfig
+  return app;
+};
+
+export default ExpressConfig;
