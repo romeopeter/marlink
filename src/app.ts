@@ -7,7 +7,7 @@ const app = ExpressConfig();
 const { PORT } = envConfig();
 
 app.listen(PORT, () => {
-  console.log("App is serving on port: ", PORT);
+  console.log("App is running on http://localhost:" + PORT);
 
   // DB connection
   connect();
