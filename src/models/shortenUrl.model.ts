@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { nanoid } from "nanoid";
 
 const UrlSchema = new mongoose.Schema({
     originalUrl: {
@@ -7,7 +8,9 @@ const UrlSchema = new mongoose.Schema({
     },
     shortenUrl: {
       type: String,
-      required: true,
+      default: () => nanoid(),
+      unique: true,
+      sparse: true,
     },
   });
   
