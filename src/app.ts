@@ -1,6 +1,6 @@
-import connect from "./db.config";
-import envConfig from "./env.config";
-import ExpressConfig from "./express.config";
+import connect from "./config/db.config";
+import envConfig from "./config/env.config";
+import ExpressConfig from "./config/express.config";
 import routes from "./routes";
 
 const app = ExpressConfig();
