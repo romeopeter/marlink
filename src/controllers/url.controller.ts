@@ -18,7 +18,11 @@ export async function shortenUrlController(req: Request, res: Response) {
   try {
     // Save to DB
     await url.save();
-    res.status(202).json({ originalUrl, customUrl });
+    res.status(202).json({
+      status: 202,
+      statusText: "OK",
+      data: { originalUrl, customUrl },
+    });
   } catch (e) {
     console.log(e);
 
@@ -44,6 +48,46 @@ export async function redirectShortenedUrlController(
       });
     } else {
       res.redirect(302, url.originalUrl);
+    }
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+// Get all shortened/truncated URL controller
+export async function allShortenedUrlController(req: Request, res: Response) {
+  try {
+    const allUrl = await urlModel.find();
+    res.status(200).json({ status: 202, statusText: "OK", data: allUrl });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+// Delete shortened/truncated URl controller
+export async function deleteShortenedUrlController(
+  req: Request,
+  res: Response
+) {
+  const shortenUrlIdParam = req.params.shortenUrlIdParam;
+
+  try {
+    const result = await urlModel.deleteOne({ shortenUrlIdParam });
+
+    if (result.deletedCount === 0) {
+      res.json(404).json({
+        status: 404,
+        statusText: "Resource not found",
+        message: "URL not found",
+      });
+    } else {
+      res.status(200).json({
+        status: 200,
+        statusText: "Resource deleted",
+        message: "URL deleted successfully",
+      });
     }
   } catch (e) {
     console.error(e);
