@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { nanoid } from "nanoid";
+import { nanoid, customAlphabet } from "nanoid";
 import urlModel from "../models/url.model";
 
 export function indexController(req: Request, res: Response) {
@@ -11,9 +11,28 @@ export function indexController(req: Request, res: Response) {
 // Shorten/truncate URL controller
 export async function shortenUrlController(req: Request, res: Response) {
   const originalUrl = req.body.originalUrl;
-  const customUrl = req.body.customUrl || nanoid();
+  const customUrlText = req.body.customUrlText;
+  let customUrl;
 
-  const url = new urlModel({ originalUrl, customUrl });
+  if (customUrlText !== undefined && customUrlText.length > 11) {
+    res
+      .status(400)
+      .json({
+        status: 400,
+        StatusText: "Bad Request",
+        message: "Custom URL text shouldn't be more than 11 characters",
+      });
+  } else {
+    const customNanoId = customAlphabet(
+      "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-",
+      11
+    );
+    customUrl = `${customUrlText}_${customNanoId()}`;
+  }
+
+  const maskedUrl = customUrl || nanoid();
+
+  const url = new urlModel({ originalUrl, maskedUrl });
 
   try {
     // Save to DB
@@ -21,7 +40,7 @@ export async function shortenUrlController(req: Request, res: Response) {
     res.status(202).json({
       status: 202,
       statusText: "OK",
-      data: { originalUrl, customUrl },
+      data: { originalUrl, maskedUrl },
     });
   } catch (e) {
     console.log(e);
