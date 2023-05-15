@@ -1,3 +1,2 @@
 # Marlink
-
-Micro-SaaS to help marketers manage, customise and get insight into website URLs.
+Micro-SaaS for shortening, customising, tracking and gaining marketing insight for URLs.

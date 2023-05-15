@@ -1,5 +1,5 @@
 {
-  "name": "url-shortener",
+  "name": "marlink",
   "version": "1.0.0",
   "description": "Transforming long URLs into short and readable ones.",
   "main": "index.js",
@@ -10,7 +10,10 @@
     "lint:fix": "eslint --ext .ts src --fix"
   },
   "keywords": [
-    "url-shortener",
+    "url",
+    "small url",
+    "shortened url",
+    "url shortening",
     "marketing",
     "traffic",
     "analytics"
